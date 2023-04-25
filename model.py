@@ -76,7 +76,10 @@ class MLP(nn.Module):
         # Use the layers defined in setup to implement the MLP part of the transformer block
 
         #YOUR CODE HERE.
-
+        # fc_out = ? Apply fully connected layer to x
+        # act_out = ? Apply activation
+        # mlp_out = ? Apply projection
+        # out = # Apply dropout [Make sure deterministic is not training]
         # ======================================================
 
         return out
