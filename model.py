@@ -127,8 +127,8 @@ class GPT(nn.Module):
     embd_pdrop: float
 
     def setup(self):
-        self.wte = nn.Embed(self.vocab_size, self.n_embd)
-        self.wpe = nn.Embed(self.block_size, self.n_embd)
+        self.wte = nn.Embed(self.vocab_size, self.n_embd) # Token Embedding Layer
+        self.wpe = nn.Embed(self.block_size, self.n_embd) # Position Embedding Layer
 
         self.drop = nn.Dropout(self.embd_pdrop)
         self.ln_f = nn.LayerNorm(1e-5)
@@ -145,20 +145,28 @@ class GPT(nn.Module):
 
     def __call__(self, x, training=False):
         out = None
+        bath_size, sequence_length = x.shape
         # ======================================================
         # Embed the input vectors x, and the positional vector, and add them together
         #YOUR CODE HERE.
+        pos = ? #Hint: Use jnp.arange. Shape should be (1, sequence length)
+        tok_emb = ? 
+        pos_emb = ?
+        x = ? # Apply dropout to sum, [Make sure deterministic when not training]
 
         # ======================================================
         # ======================================================
         # Run the Transformer blocks
         # YOUR CODE HERE.
+        for _ in _:
+            x = some_block_func()
 
         # ======================================================
         # ======================================================
         # Run the final LayerNorm and lm_head layers
         # YOUR CODE HERE.
-
+        x = ?
+        out = ?
         # ======================================================
 
         return out
