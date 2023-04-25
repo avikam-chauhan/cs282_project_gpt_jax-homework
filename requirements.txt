@@ -1,0 +1,11 @@
+numpy
+jax
+jaxlib
+flax
+optax
+dm-haiku
+torch
+clu
+tqdm
+matplotlib
+jupyter
