@@ -26,23 +26,35 @@ class CausalSelfAttention(nn.Module):
     def __call__(self, x, training=False):
         out = None
         batch_size, sequence_length, _ = x.shape
+        embds_pr_head = self.n_embd // self.n_head
         # ======================================================
         # Start by applying the qdense, vdense, kdense to the x input to get values for q, k and v.
-
+        # q, v, k 
+        # shape of q, k, and v should be (batch size, sequence length, # heads, embeddings per head)
         #YOUR CODE HERE.
-
+        q = q.reshape(batch_size, sequence_length, ?, ?).transpose(0, 2, 1, 3)
+        v = v.reshape(batch_size, sequence_length, ?, ?).transpose(0, 2, 1, 3)
+        k = k.reshape(batch_size, sequence_length, ?, ?).transpose(0, 2, 1, 3)
         # ======================================================
 
         # ======================================================
         # Use the values for q, k, v and self.mask to calculate causal self-attention
-
+        att = (q @ k.transpose(0, 1, 3, 2)) * (1 / ?) # ? = normalization
+        minfs = lax.broadcast(? , ?) #jax array of negative infinities. Shape should be that of attention
+        mask = lax.broadcast(, (att.shape[0], att.shape[1]))
         # YOUR CODE HERE.
-
+        att = # Apply causal mask to attention (HINT: Use lax.select)
+        att = # Softmax attention output
+        att = self.attn_dropout(att, deterministic=not training)
         # ======================================================
 
         # ======================================================
-        # Add the final projection and dropout layers
-
+        # Get the outputs by multiplying attention with values
+        #y = 
+        y = y.reshape((?, ? ,?)) # y should be of shape (batch size, sequence length, number of embeddings)
+        
+        #Apply dropout to the projection of y
+        y = self.?(?, deterministic=not training)
         # YOUR CODE HERE.
 
         # ======================================================
