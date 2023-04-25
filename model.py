@@ -101,15 +101,17 @@ class Block(nn.Module):
     def __call__(self, x, training=False):
         out = None
         # ======================================================
-        # Add a normalized, residually connected attention layer
+        # Add a normalized, residually connected attention layer to x
 
         #YOUR CODE HERE.
+        attention_output = ? 
 
         # ======================================================
         # ======================================================
         # Add a normalized, residually connected MLP layer
 
         #YOUR CODE HERE.
+        out = attention_output + ?
 
         # ======================================================
 
