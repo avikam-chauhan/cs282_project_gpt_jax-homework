@@ -1,6 +1,12 @@
 # script for testing the mlp architecture
-from mingpt_pytorch.model import CausalSelfAttention, Block, GPT
-from mingpt_pytorch.utils import CfgNode
+import sys
+import os
+cwd = os.getcwd()
+dir_proj = cwd + "/../.."
+sys.path.append(dir_proj)
+
+from cs282_project_gpt_jax.mingpt_pytorch.model import CausalSelfAttention, Block, GPT
+from cs282_project_gpt_jax.mingpt_pytorch.utils import CfgNode
 import torch
 
 from jax import lax, random, numpy as jnp
@@ -8,12 +14,12 @@ import jax
 from flax.core import freeze, unfreeze
 from flax import linen as nn, traverse_util
 
-from model import GPT as GPT_jax 
-from model import MLP as MLP_jax
-from model import CausalSelfAttention as CausalSelfAttention_jax 
-from model import Block as Block_jax 
+from cs282_project_gpt_jax.model import GPT as GPT_jax 
+from cs282_project_gpt_jax.model import MLP as MLP_jax
+from cs282_project_gpt_jax.model import CausalSelfAttention as CausalSelfAttention_jax 
+from cs282_project_gpt_jax.model import Block as Block_jax 
 
-from tests.config import config_gpt, config_jax, BATCH_SIZE
+from cs282_project_gpt_jax.tests.config import config_gpt, config_jax, BATCH_SIZE
 
 key1, key2, dropout_key = random.split(random.PRNGKey(1), 3)
 x_csa = random.uniform(key1, (BATCH_SIZE, config_jax["block_size"], config_jax['n_embd']), dtype=float, minval=0., maxval=1.)
